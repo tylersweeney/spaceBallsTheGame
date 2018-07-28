@@ -1,0 +1,54 @@
+/* Style the video: 100% width and height to cover the entire window */
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+}
+
+/* Add some content at the bottom of the video/page */
+.content {
+    position: fixed;
+    left: 0;
+    background: rgba(106, 252, 181, 0.25);
+    color: #f1f1f1;
+    width: 25%;
+    padding: 20px;
+    /* border-style: dashed; */
+}
+
+/* Style the button used to pause/play the video */
+#myBtn {
+    width: 200px;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
+#myBtn:hover {
+    background: #ddd;
+    color: black;
+}
+
+.section-title{
+    font-size: 200%;
+    color: rgb(218, 75, 130);
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.main-section-title{
+    font-family: 'Bungee', cursive;
+    text-shadow: 10px 6px rgba(240, 69, 112, 0.74);
+    color: rgba(0, 240, 168, 0.726);
+    font-size: 400%;
+    text-align: center;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    z-index: 1;
+}
+
