@@ -16,12 +16,13 @@ $(document).ready(function(){
             imageUrl: "assets/Images/darkHelmet.gif",
             enemyAttackBack: 5
         },
-        "Barf" : {
-            name: "Barf",
-            health: 150,
-            attack: 8,
-            imageURL: "assets/Images/barf.gif",
-            enemyAttackBack: 5
+            "Barf" : {
+                name: "Barf",
+                health: 150,
+                attack: 8,
+                imageUrl: "assets/Images/barfMog.gif",
+                enemyAttackBack: 10
+    
         },
         "President Skroob" : {
             name: "President Skroob",
