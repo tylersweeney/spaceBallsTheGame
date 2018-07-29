@@ -24,8 +24,7 @@ $(document).ready(function(){
                 health: 150,
                 attack: 8,
                 imageUrl: "assets/Images/barfMog.gif",
-                enemyAttackBack: 10
-    
+                enemyAttackBack: 10    
         },
         "President Skroob" : {
             name: "President Skroob",
@@ -35,83 +34,88 @@ $(document).ready(function(){
             enemyAttackBack: 20
         }
     };
-    var currSelectedCharacter;
+
+    // Will be populated when the player selects a character.
+    var attacker;
+    // Populated with all the characters the player didn't select.
     var combatants = [];
+    // Will be populated when the player chooses an opponent.
+    var defender;
+    // Will keep track of turns during combat. Used for calculating player damage.
+    var turnCounter = 1;
+    // Tracks number of defeated opponents.
+    var killCount = 0;
+
     // FUNCTIONS
     // ================================================================================================
 
     // This function will render a character card to the page.
-    // The character rendered and the area they are rendered to
-    var renderOne = function(character, renderArea, charStatus) {
+    // The character rendered, the area they are rendered to, and their status is determined by the arguments passed in.
+    var renderCharacter = function(character, renderArea) {
+        // This block of code builds the character card, and renders it to the page.
         var charDiv = $("<div class='character' data-name='" + character.name + "'>");
         var charName = $("<div class='character-name'>").text(character.name);
         var charImage = $("<img alt='image' class='character-image'>").attr("src", character.imageUrl);
         var charHealth = $("<div class='character-health'>").text(character.health);
         charDiv.append(charName).append(charImage).append(charHealth);
         $(renderArea).append(charDiv);
+    };
 
-        if (charStatus === "enemy"){
-            $(charDiv).addClass("enemy");
+    // This function will load all the characters into the character section to be selected
+    var initializeGame = function() {
+        // Loop through the characters object and call the renderCharacter function on each character to render their card.
+        for (var key in characters) {
+            renderCharacter(characters[key], "#characters-section");
         }
-    }
-    //This function handles the rendering of characters base on which are selected
-    var renderCharacters = function(charObj, areaRender) {
-        if (areaRender === "#characters-section") {
-            $(areaRender).empty();
-            //Loop through the characters object
-            for (var key in charObj) {
-                if(charObj.hasOwnProperty(key)) {
-                    renderOne(charObj[key], areaRender, "");
-                }
-            }
+    };
+
+    // Remember to run the function here
+    initializeGame();
+
+    // This function handles updating the selected player or the current defender. If there is no selected player/defender this
+    // function will also place the character based on the areaRender chosen (e.g. #selected-character or #defender)
+    var updateCharacter = function(charObj, areaRender){
+        // First we empty the area so that we can re-render the new object
+        $(areaRender).empty();
+        renderCharacter(charObj, areaRender);
+    };
+
+    // This function will render the available-to-attack enemies. This should be run once after a character has been selected
+    var renderEnemies = function(enemyArr) {
+        for (var i = 0; i < enemyArr.length; i++) {
+            renderCharacter(enemyArr[i], "#available-to-attack-section");
         }
+    };
 
-        // "selected-character" is the div where our selected character
-        // If true, render the selected player character to this area
-        if (areaRender === "#selected-character"){
-            renderOne(charObj, areaRender, "");
-        }
+    // Function to handle rendering game messages.
+    var renderMessage = function(message) {
+        //Builds the message and appends it to the page.
+        var gameMessageSet = $("#game-message");
+        var newMessage = $("<div>").text(message);
+        gameMessageSet.append(newMessage);
+    };
 
-        // "available-to-attack" is the div where inactive opponenets are
-        if (areaRender === "#available-to-attack-section"){
-            for(var i = 0; i < charObj.length; i++) {
-                renderOne(charObj[i], areaRender, "enemy");
-            }
+    // Function which handles restarting the game after victory or defeat.
+    var restartGame = function(restultMessage) {
+        // When the "Restart" button is clicked, reload the page.
+        var restart = $("<button>Restart</button>").click(function() {
+            location.reload();
+        });
 
-            $(document).on("click", ".enemy", function(){
-                var name = ($(this).attr("data-name"));
-            })
-        }
-    }
-    // Render all characters to the page when the game starts.
-    renderCharacters(characters, "#characters-section");
+        // Build div that will display the victory or defeat message.
+        var gameState = $("<div>").text(resultMessage);
 
-    // On click event for selecting our character.
-    $(document).on("click", ".character", function(){
-        // Saving the clicked character's name.
-        var name = $(this).attr("data-name");
+        // Render the restart button and victory/defeat message to the page.
+        $("body").append(gameState);
+        $("body").append(restart);
+    };
 
-        if ($("#defender").children().length === 0) {
-            renderCharacters(name, "#defender");
-            $(this).hide();
-        }
+    // Function to clea the game message section
+    var clearMessage = function() {
+        var gameMessage = $("#game-message");
 
-        if (!currSelectedCharacter) {
-            currSelectedCharacter = characters[name];
-            for(var key in characters) {
-                if(key!== name) {
-                    combatants.push(characters[key]);
-                }
-            }
+        gameMessage.text("");
+    };
 
-            console.log(combatants);
-            // Hide the character select div.
-            $("#characters-section").hide();
-
-            // Then render our selected character and our combatants.
-            renderCharacters(currSelectedCharacter, "#selected-character");
-            renderCharacters(combatants, "#available-to-attack-section");
-
-        }
-    })
+    // ========================================================================================================================================
 });
