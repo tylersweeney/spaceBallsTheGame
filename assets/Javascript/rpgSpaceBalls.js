@@ -1,6 +1,9 @@
 // Execute this code when the DOM has fully loaded.
-
 $(document).ready(function(){
+    // VARIABLE DECLARATION
+    //==============================================================================================
+
+    // Creating an object to hold our characters.
     var characters = {
         "Lone Starr": {
             name: "Lone Starr",
@@ -87,6 +90,11 @@ $(document).ready(function(){
     $(document).on("click", ".character", function(){
         // Saving the clicked character's name.
         var name = $(this).attr("data-name");
+
+        if ($("#defender").children().length === 0) {
+            renderCharacters(name, "#defender");
+            $(this).hide();
+        }
 
         if (!currSelectedCharacter) {
             currSelectedCharacter = characters[name];
