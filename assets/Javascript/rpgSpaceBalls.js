@@ -144,4 +144,20 @@ $(document).ready(function(){
         }
     });
 
+    // Creates an on click event for each enemy.
+    $("#available-to-attack-section").on("click", ".character", function() {
+        // Saving an opponent's name.
+        var name = $(this).attr("data-name");
+
+        // If there is no defender, the clicked enemy will become the defender.
+        if ($("#defender").children().length === 0) {
+            defender = characters[name];
+            updateCharacter(defender, "#defender");
+
+            // Remove element as it will now be a new defender
+            $(this).remove();
+            clearMessage();
+        }
+    });
+    
 });
