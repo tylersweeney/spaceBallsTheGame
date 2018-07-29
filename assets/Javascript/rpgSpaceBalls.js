@@ -159,5 +159,15 @@ $(document).ready(function(){
             clearMessage();
         }
     });
-    
+
+    // When you click the attack button, run the following game Logic
+    $("#attack-button").on("click", function() {
+        // If there is a defender, combat will occur.
+        if ($("#defender").children().length !== 0) {
+            // Creates message for our attack and our opponents counter attack.
+            var attackMessage = "You Attacked " + defender.name + " for " + attacker.atack * turnCounter + " damage.";
+            var counterAttackMessage = defender.name + " attacked you back for " + defender.enemyAttackBack + " damage.";
+            clearMessage();
+        }
+    })
 });
