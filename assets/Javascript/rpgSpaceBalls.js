@@ -117,5 +117,26 @@ $(document).ready(function(){
         gameMessage.text("");
     };
 
-    // ========================================================================================================================================
+    // =============================================================================================================
+
+    // On click event for selecting our character.
+    $("#characters-section").on("click", ".character", function() {
+        // Saving the clicked character's name.
+        var name = $(this).attr("data-name");
+
+        // If a player character has not yet been chosen
+        if(!attacker) {
+            // Populate attacker with the selected character's information.
+            attacker = characters[name];
+            // Loop through the remaining characters and push them to the combatants array.
+            for (var key in characters) {
+                if ( key !== name) {
+                    combatants.push(characters[key]);
+                }
+            }
+
+            // Hide the character select div.
+            
+        }
+    })
 });
