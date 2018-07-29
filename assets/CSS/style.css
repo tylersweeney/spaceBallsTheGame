@@ -65,6 +65,7 @@ img {
     border-width: 3px;
     cursor: pointer;
     background-color: white; 
+    margin: 5px;
 }
  .character-image {
      padding-right: 16px;
