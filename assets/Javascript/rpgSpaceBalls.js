@@ -96,7 +96,7 @@ $(document).ready(function(){
     };
 
     // Function which handles restarting the game after victory or defeat.
-    var restartGame = function(restultMessage) {
+    var restartGame = function(resultMessage) {
         // When the "Restart" button is clicked, reload the page.
         var restart = $("<button>Restart</button>").click(function() {
             location.reload();
@@ -165,7 +165,7 @@ $(document).ready(function(){
         // If there is a defender, combat will occur.
         if ($("#defender").children().length !== 0) {
             // Creates message for our attack and our opponents counter attack.
-            var attackMessage = "You Attacked " + defender.name + " for " + attacker.atack * turnCounter + " damage.";
+            var attackMessage = "You Attacked " + defender.name + " for " + attacker.attack * turnCounter + " damage.";
             var counterAttackMessage = defender.name + " attacked you back for " + defender.enemyAttackBack + " damage.";
             clearMessage();
 
@@ -211,7 +211,7 @@ $(document).ready(function(){
                 if (killCount >= combatants.length) {
                     clearMessage();
                     $("#attack-button").off("click");
-                    restardGame("You Won! Game Over!");
+                    restartGame("You Won! Game Over!");
                 }
             }
             // Increment turn counter. This is used for determining how much damage the player does
