@@ -136,7 +136,12 @@ $(document).ready(function(){
             }
 
             // Hide the character select div.
-            
+            $("#characters-section").hide();
+
+            // Then render our selected character and our combatants.
+            updateCharacter(attacker, "#selected-character");
+            renderEnemies(combatants);
         }
-    })
+    });
+
 });
